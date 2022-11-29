@@ -14,6 +14,8 @@ extend type Mutation {
   updateWebsiteSiteURL(input: UpdateWebsiteSiteURLInput!): WebsiteSite! @requiresAuth
   updateWebsiteSiteImageHost(input: UpdateWebsiteSiteImageHostInput!): WebsiteSite! @requiresAuth
   updateWebsiteSiteAssetHost(input: UpdateWebsiteSiteAssetHostInput!): WebsiteSite! @requiresAuth
+  updateWebsiteSiteDateConfig(input: UpdateWebsiteSiteDateConfigInput!): WebsiteSite! @requiresAuth
+  updateWebsiteSiteLanguageConfig(input: UpdateWebsiteSiteLanguageConfigInput!): WebsiteSite! @requiresAuth
 }
 
 type WebsiteSite {
@@ -158,6 +160,28 @@ input UpdateWebsiteSiteImageHostInput {
 input UpdateWebsiteSiteAssetHostInput {
   id: ObjectID!
   assetHost: String!
+}
+
+input WebsiteSiteDateInput {
+  timezone: String! # tz database format, e.g. America/Chicago
+  format: String! # moment.format()
+  locale: String! # moment.locale()
+}
+
+input WebsiteSiteLanguageInput {
+  code: String!
+  primaryCode: String! # ISO 639-1
+  subCode: String # https://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
+}
+
+input UpdateWebsiteSiteDateConfigInput {
+  id: ObjectID!
+  date: WebsiteSiteDateInput!
+},
+
+input UpdateWebsiteSiteLanguageConfigInput {
+  id: ObjectID!
+  language: WebsiteSiteLanguageInput!
 }
 
 `;
